@@ -1,0 +1,48 @@
+{
+  "name": "pc4store",
+  "version": "1.0.0",
+  "description": "SDK for PC4Store",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "lib/**/*"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "format": "prettier --write \"src/**/*.ts\"",
+    "lint": "eslint . --ext .ts",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm run lint",
+    "preversion": "npm run lint",
+    "version": "npm run format && git add -A src",
+    "postversion": "git push && git push --tags"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pc4store/pc4store-js.git"
+  },
+  "keywords": [
+    "pc4store",
+    "payment"
+  ],
+  "author": "e.roginskiy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pc4store/pc4store-js/issues"
+  },
+  "homepage": "https://github.com/pc4store/pc4store-js#readme",
+  "dependencies": {
+    "noble-ed25519": "^1.0.4",
+    "node-fetch": "^2.6.1"
+  },
+  "devDependencies": {
+    "@types/node": "^14.14.37",
+    "@types/node-fetch": "^2.5.9",
+    "@typescript-eslint/eslint-plugin": "^4.21.0",
+    "@typescript-eslint/parser": "^4.21.0",
+    "eslint": "^7.23.0",
+    "prettier": "^2.2.1",
+    "typescript": "^4.2.3"
+  }
+}

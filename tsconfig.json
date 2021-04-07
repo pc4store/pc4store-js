@@ -1,0 +1,13 @@
+{
+    "compilerOptions": {
+      "module": "commonjs",
+      "moduleResolution": "node",
+      "declaration": true,
+      "outDir": "./lib",
+      "strict": true,
+      "target": "es2016",
+      "lib": ["es2016", "esnext.asynciterable"]
+    },
+    "include": ["src"],
+    "exclude": ["node_modules", "**/__tests__/*"]
+}
