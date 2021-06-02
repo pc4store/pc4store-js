@@ -59,22 +59,14 @@ export class PC4StoreClient {
     }).then((j) => j.json());
   }
   /**
-   * Get order's data by orderId. Verify built in
    * @param orderId - order's id in payment system
    * @returns order
    */
   async getOrder(orderId: string): Promise<GetOrderOutput> {
-    const response = await fetch(`${HOST}/order_info/${orderId}`, {
+    return await fetch(`${HOST}/order_info/${orderId}`, {
       method: 'GET',
       headers: this.constructHeaders(),
-    });
-
-    const data = await response.json();
-    const isValidSignature = await this.verify({ signature: response.headers.get('signature') || '' }, data);
-
-    if (!isValidSignature) throw Error('Invalid signature');
-
-    return data;
+    }).then((j) => j.json());
   }
 
   /**
@@ -91,21 +83,13 @@ export class PC4StoreClient {
   }
 
   /**
-   * Get transfer's details by transfer's id. Verify - built in
    * @param transferId - transfers's id in payment system
    * @returns transfer's details
    */
   async getTransfer(transfer: string): Promise<GetTransferOutput> {
-    const response = await fetch(`${HOST}/transfer_info/${transfer}`, {
+    return await fetch(`${HOST}/transfer_info/${transfer}`, {
       method: 'GET',
       headers: this.constructHeaders(),
-    });
-
-    const data = await response.json();
-    const isValidSignature = await this.verify({ signature: response.headers.get('signature') || '' }, data);
-
-    if (!isValidSignature) throw Error('Invalid signature');
-
-    return data;
+    }).then((j) => j.json());
   }
 }
