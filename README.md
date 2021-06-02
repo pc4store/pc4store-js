@@ -12,30 +12,27 @@ Just run
 ## Create order
 
 ```TypeScript
-import * as PC4StoreClient from 'pc4store';
-
-const storeId = 'your_store_id'
-const secretKey = 'your_secret_key'
+import { PC4StoreClient } from 'pc4store';
 
 // All required params for create order. Look at typedef
 const orderParams = { ... }
+const client = new PC4StoreClient({
+    storeId: 'your_store_id',
+    secretKey: 'your_secret_key',
+})
 
 try {
-    const response = await PC4StoreClient.createOrder(
-        storeId,
-        secretKey,
-        orderParams
-    );
+    const response = await client.createOrder(orderParams);
 
     if (response.status === 'OK') {
         // order created
-        const order = response.payload.order.payment_url;
+        const order = response.payload.order;
     } else {
         // something happend
         throw Error(response.error);
     }
 } catch (e) {
-
+    // Handle errors
 }
 ```
 
@@ -52,25 +49,26 @@ try {
 
 }
 ```
+
 ## Get order details
 
 ```TypeScript
-import * as PC4StoreClient from 'pc4store';
+import { PC4StoreClient } from 'pc4store';
 
-const storeId = 'your_store_id'
-const secretKey = 'your_secret_key'
 const orderId = 'order_id_in_payment_system'
+const client = new PC4StoreClient({
+    storeId: 'your_store_id',
+    secretKey: 'your_secret_key',
+})
+
 
 try {
-    const response = await PC4StoreClient.getOrder(
-        storeId,
-        secretKey,
-        orderId
-    );
+    const response = await client.getOrder(orderId);
+
 
     if (response.status === 'OK') {
         // order received
-        const order = response.payload.order.payment_url;
+        const order = response.payload.order;
     } else {
         // something happend
         throw Error(response.error);
@@ -80,4 +78,55 @@ try {
 }
 ```
 
+## Create transfer
 
+```TypeScript
+import { PC4StoreClient } from 'pc4store';
+
+const transferParams = { ... }
+const client = new PC4StoreClient({
+    storeId: 'your_store_id',
+    secretKey: 'your_secret_key',
+})
+
+try {
+    const response = await client.createTransfer(transferParams);
+
+
+    if (response.status === 'OK') {
+        // transfer created
+        const transfer = response.payload.transfer;
+    } else {
+        // something happend
+        throw Error(response.error);
+    }
+} catch (e) {
+
+}
+```
+
+## Get transfer
+
+```TypeScript
+import { PC4StoreClient } from 'pc4store';
+
+const transferId = 'some_id'
+const client = new PC4StoreClient({
+    storeId: 'your_store_id',
+    secretKey: 'your_secret_key',
+})
+
+try {
+    const response = await client.getTransfer(transferId);
+
+    if (response.status === 'OK') {
+        // transfer received
+        const transfer = response.payload.transfer;
+    } else {
+        // something happend
+        throw Error(response.error);
+    }
+} catch (e) {
+
+}
+```

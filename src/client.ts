@@ -15,6 +15,22 @@ import {
 const HOST = 'https://api.pc4.store/v1';
 const PUBLIC_KEY = '69f72437e2e359a3e5c29fe9a7e0d509345cc57b7bfca0b470598d679a349806';
 
+/**
+ * Verify response
+ * @param signature - hex string, taken from header
+ * @param data - callback's body
+ */
+export const verify = async (
+  headers: { [key: string]: unknown; signature: string },
+  data: SuccessfulOrderResponse | SuccessfulTransferResponse,
+) => {
+  return await ed.verify(
+    headers.signature,
+    crypto.createHash('sha256').update(JSON.stringify(data)).digest('hex'),
+    PUBLIC_KEY,
+  );
+};
+
 export class PC4StoreClient {
   storeId: string;
   secretKey: string;
@@ -29,22 +45,6 @@ export class PC4StoreClient {
       'Content-Type': 'application/json',
       Authorization: 'Basic ' + Buffer.from(this.storeId + ':' + this.secretKey).toString('base64'),
     };
-  }
-
-  /**
-   * Verify response
-   * @param signature - hex string, taken from header
-   * @param data - callback's body
-   */
-  async verify(
-    headers: { [key: string]: unknown; signature: string },
-    data: SuccessfulOrderResponse | SuccessfulTransferResponse,
-  ) {
-    return await ed.verify(
-      headers.signature,
-      crypto.createHash('sha256').update(JSON.stringify(data)).digest('hex'),
-      PUBLIC_KEY,
-    );
   }
 
   /**
