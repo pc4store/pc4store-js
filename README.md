@@ -95,7 +95,7 @@ try {
 
     if (response.status === 'OK') {
         // transfer created
-        const transfer = response.payload.transfer;
+        const transfer = response.payload.transfer_id;
     } else {
         // something happend
         throw Error(response.error);
