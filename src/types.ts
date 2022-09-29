@@ -77,7 +77,7 @@ export type SuccessfulOrderResponse = {
 export type SuccessfulTransferResponse = {
   status: 'OK';
   payload: {
-    transfer: Transfer;
+    transfer_id: string;
   };
 };
 
